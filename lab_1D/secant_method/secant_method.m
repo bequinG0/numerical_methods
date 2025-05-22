@@ -14,7 +14,7 @@ function [root, x_list] = secant_method(f, a, b, e, PlotFlag)
         plot(x(end), f(x(end)), 'ro', 'MarkerSize', 2, 'LineWidth', 3);
         xlabel('x');
         ylabel('f(x)');
-        title('Интервалы с корнями (отмечены красным)');
+        title('Метод секущих');
         legend('Функция', 'Корень', 'Location', 'northwest');
     endif
 

@@ -15,7 +15,7 @@ function [root, x_list] = newton_method(f, a, b, e, PlotFlag)
         plot(x_list(end), f(x_list(end)), 'ro', 'MarkerSize', 2, 'LineWidth', 3);
         xlabel('x');
         ylabel('f(x)');
-        title('Метод Ньютона (касательных)');
+        title('Метод Ньютона');
         legend('Функция', 'Корень', 'Location', 'northwest');
     endif
 
