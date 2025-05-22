@@ -4,7 +4,7 @@ function [A, B] = RootsSeparation(f, a, b, N, Hmin, PlotFlag)
   B = [];
   while (N > 0) && (temp < b)
     if sign(f(temp)) ~= sign(f(temp + Hmin))
-      A = [A, temp];
+      A = [A, temp-Hmin];
       B = [B, temp+Hmin];
       N = N - 1;
     endif
@@ -17,12 +17,15 @@ function [A, B] = RootsSeparation(f, a, b, N, Hmin, PlotFlag)
     grid on;
     x = linspace(a, b, 1000);
     plot(x, f(x), 'b', 'LineWidth', 2);
-    plot(A, zeros(size(A)), 'ro', 'MarkerSize', 8, 'LineWidth', 1.5);
-    plot(B, zeros(size(B)), 'ro', 'MarkerSize', 8, 'LineWidth', 1.5);
+    plot(A, zeros(size(A)), 'ro', 'MarkerSize', 2, 'LineWidth', 1.5);
+    plot(B, zeros(size(B)), 'ro', 'MarkerSize', 2, 'LineWidth', 1.5);
     xlabel('x');
     ylabel('f(x)');
     title('Интервалы с корнями (отмечены красным)');
     legend('Функция', 'Границы интервалов', 'Location', 'northwest');
   endif
 endfunction
+<<<<<<< HEAD:lab_1C/RootSepration.m
 %}
+=======
+>>>>>>> origin/desktop:lab_1C/RootsSeparation.m
