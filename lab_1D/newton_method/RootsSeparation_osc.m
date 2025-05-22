@@ -1,1 +1,0 @@
-/home/bequ1n/sandbox/numerical_methods/lab_1C/RootsSeparation_osc.m

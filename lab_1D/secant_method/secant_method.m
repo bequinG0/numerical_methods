@@ -1,8 +1,8 @@
-function root = secant_method(f, a, b, e, PlotFlag)
+function [root, x_list] = secant_method(f, a, b, e, PlotFlag)
     dx = 1e-6;
-    x = [b, b-dx];
-    while (abs(f(x(end))) > e) && ((x(end) >= a) && (x(end) <=b))
-        x(end+1) = x(end) - f(x(end)) .* ((x(end) - x(end-1))./(f(x(end)) - f(x(end-1))));
+    x_list = [b, b-dx];
+    while (abs(f(x_list(end))) > e) && ((x_list(end) >= a) && (x_list(end) <=b))
+        x_list(end+1) = x_list(end) - f(x_list(end)) .* ((x_list(end) - x_list(end-1))./(f(x_list(end)) - f(x_list(end-1))));
     endwhile
 
     if PlotFlag == 1
@@ -18,6 +18,5 @@ function root = secant_method(f, a, b, e, PlotFlag)
         legend('Функция', 'Корень', 'Location', 'northwest');
     endif
 
-    root = x(end);
-
+    root = x_list(end);
 endfunction
