@@ -1,14 +1,14 @@
 
 
-k = poly([-5, 7, 8]);
+k = poly([-0.2, -6, 6, -8, -1, -5, 7, 8]);
 f = @(x) polyval(k, x);
 
-a = 7.5;
-b = 8.2;
+a = -8.1;
+b = -7.5;
 N = 1;
 h_min = (b-a)/10000;
-[left, right] = RootsSeparation(f, a, b, N, h_min, 0)
-[r, x_list] = bisection(f, left(1), right(1), 1e-3, 0)
+%[left, right] = RootsSeparation(f, a, b, N, h_min, 0)
+[r, x_list] = bisection(f, a, b, 1e-3, 0)
 errors = [];
 for i = 1:size(x_list)
     errors(end+1) = abs(x_list(i) - r);
@@ -28,8 +28,8 @@ f = @(x) x.^3 - x;
 a = -0.5;
 b = 1;
 h_min = (b-a)/10000;
-[left, right] = RootsSeparation(f, a, b, N, h_min, 0);
-[r, x_list] = bisection(f, left(1), right(1), 1e-3, 0);
+%[left, right] = RootsSeparation(f, a, b, N, h_min, 0);
+[r, x_list] = bisection(f, a, b, 1e-3, 0);
 errors = [];
 for i = 1:size(x_list)
     errors(end+1) = abs(x_list(i) - r);

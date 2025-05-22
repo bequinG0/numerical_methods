@@ -4,9 +4,9 @@ function [roots, x_list] = bisection(f, a, b, e, PlotFlag)
     x_list(end+1) = (a+b)/2;
     while (abs(f(x_list(end))) > e) && k < 1000 
         if sign(f(x_list(end))) == sign(f(a))
-            b = x_list(end);
-        else
             a = x_list(end);
+        else
+            b = x_list(end);
         endif
         x_list(end+1) = (a+b)/2;
         k = k + 1;
