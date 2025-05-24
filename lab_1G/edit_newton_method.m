@@ -1,0 +1,1 @@
+/home/bequ1n/sandbox/numerical_methods/lab_1E/edit_newton_method.m
