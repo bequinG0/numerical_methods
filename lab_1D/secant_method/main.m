@@ -11,7 +11,7 @@ h_min = (b-a)/10000;
 r = [];
 [r, x_list] = secant_method(f, left(1), right(1), 1e-6, 0);
 errors = [];
-for i = 1:size(x_list)
+for i = 1:length(x_list)
     errors(end+1) = abs(x_list(i) - r);
 endfor
 errors = abs(x_list - r);

@@ -8,7 +8,7 @@ h_min = (b-a)/10000;
 %[left, right] = RootsSeparation(f, a, b, N, h_min, 0)
 [r, x_list] = bisection(f, a, b, 1e-3, 0)
 errors = [];
-for i = 1:size(x_list)
+for i = 1:length(x_list)
     errors(end+1) = abs(x_list(i) - r);
 endfor
 errors = abs(x_list - r);
@@ -29,7 +29,7 @@ h_min = (b-a)/10000;
 [left, right] = RootsSeparation(f, a, b, N, h_min, 0);
 [r, x_list] = bisection(f, left(1), right(1), 1e-3, 0)
 errors = [];
-for i = 1:size(x_list)
+for i = 1:length(x_list)
     errors(end+1) = abs(x_list(i) - r);
 endfor
 errors = abs(x_list - r);
@@ -51,7 +51,7 @@ h_min = (b-a)/10000;
 [r, x_list] = bisection(f, left(1), right(1), 1e-3, 0);
 x_list(end)
 errors = [];
-for i = 1:size(x_list)
+for i = 1:length(x_list)
     errors(end+1) = abs(x_list(i) - r);
 endfor
 errors = abs(x_list - r);
