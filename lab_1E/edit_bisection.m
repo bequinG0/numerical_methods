@@ -2,7 +2,7 @@ function [roots, x_list] = edit_bisection(f, a, b, e, PlotFlag)
     x_list = [];
     k = 0;
     x_list(end+1) = (a+b)/2;
-    while (abs(f(x_list(end))) > e) && k < 1000
+    while (sign(f(x_list - e)) == sign(f(x_list + e))) && k < 1000
         if sign(f(x_list(end))) == sign(f(a))
             a = x_list(end);
         else

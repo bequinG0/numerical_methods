@@ -1,1 +1,0 @@
-/home/bequ1n/sandbox/numerical_methods/lab_1D/bisection/bisection.m
