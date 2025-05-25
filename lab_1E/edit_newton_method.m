@@ -1,7 +1,7 @@
 function [root, x_list] = edit_newton_method(f, a, b, e, PlotFlag)
     x_list = [b];
     dx = 1e-6;
-    while (sign(f(x_list - e)) == sign(f(x_list + e))) && (x_list(end) <= b)
+    while (sign(f(x_list(end) - e)) == sign(f(x_list(end) + e))) && (x_list(end) <= b)
         df = (f(x_list(end) + dx) - f(x_list(end))) / dx;
         x_list(end+1) = x_list(end) - f(x_list(end)) / df;
     endwhile
