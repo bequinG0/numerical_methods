@@ -37,9 +37,9 @@ fprintf("err = %.20f\n", err);
 fprintf("o_err = %.20f\n\n", o_err);
 
 %Подсчёт суммы 1/k^2
-
-fprintf("[*] Подсчёт суммы 1/k^2\n");
 #{
+fprintf("[*] Подсчёт суммы 1/k^2\n");
+
 s_1 = 0;
 s_2 = 0;
 for k = 1:1e9 % По возрастанию
@@ -68,8 +68,8 @@ fprintf("err_2 = %.20f\n", err_2);
 fprintf("o_err_1 = %.20f\n", o_err_1);
 fprintf("o_err_2 = %.20f\n\n", o_err_2);
 #}
-% Вычисление суммы \sum \limits_{k=1}^{n} x^k
-%{
+ %Вычисление суммы \sum \limits_{k=1}^{n} x^k
+
 fprintf("[*] Вычисление суммы x^k\n");
 
 x_1 = 2;
@@ -89,7 +89,9 @@ for i = 1:9
   fprintf("S_1[%d] = %.20f\n", i, S_1(i));
   fprintf("S_2[%d] = %.20f\n", i, S_2(i));
 endfor
-%}
+
+S_1(end);
+
 % Вычисление производной функции
 
 x = 0.8;
@@ -120,4 +122,4 @@ plot(dx_1, err_2, 'r', 'LineWidth', 2);
 xlabel('Шаг h');
 ylabel('Ошибка E(h)');
 title('Зависимость ошибки численного дифференцирования от шага h');
-#}
+
