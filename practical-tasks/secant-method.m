@@ -1,0 +1,1 @@
+../lab_1/lab_1D/secant_method/secant_method.m
