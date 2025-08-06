@@ -1,1 +1,0 @@
-../lab_1/lab_1C/RootsSeparation.m

@@ -1,1 +1,0 @@
-../lab_1/lab_1D/newton_method/newton_method.m
