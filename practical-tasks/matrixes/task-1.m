@@ -1,50 +1,28 @@
 warning('off', 'Octave:missing-FcInit');
 
 fprintf("[*] Решение СЛАУ методом Гаусса\n");
+fprintf("[*] Система №1:\n");
 
 A = [5.64, -4.52, 4.57;
     -2.17, 1.36, -5.53;
     8.77, -2.78, 5.44];
 
-B = [8.32, 7.21, 7.56];
+B = [8.32; 7.21; 7.56];
 
-AB = [5.64, -4.52, 4.57, 8.32;
-    -2.17, 1.36, -5.53, 7.21;
-    8.77, -2.78, 5.44, 7.56];
+n = size([A, B], 1);
 
-n = size(AB, 1);
+X = gauss(A, B, n)
 
-for k = 1:n-1
-    temp = AB(k, k);
-    for j = k:size(AB, 2)
-        AB(k, j) = AB(k, j)/temp;
-    end
-    for i = k+1:n   
-        factor = AB(i, k);
-        for j = k:size(AB, 2)
-            AB(i, j) = AB(i, j) - AB(k, j) * factor;
-        end
-    end
-end
+fprintf("[*] Система №2:\n");
 
-AB(end, end) = AB(end, end)/AB(end, end-1);
-AB(end, end-1) = 1;
-AB 
+A = [2.34, -1.84, 0.32, 0.11;
+    -1.19, 0.43, -0.52, 3.37;
+    0.33, 0.61, 7.75, -2.18;
+    -1.53, 0.81, 0.94, -4.82];
 
-X = [];
-X(end+1) = AB(end, end)/AB(end, end-1);
+B =[2.22; -5.26; 0.15; -3.74];
 
-n = size(A, 1);
+n = size([A, B], 1);
 
-for i = n-1:-1:1
-    res = AB(i, end);
-    for j = (i+1):n 
-        res = res - AB(i, j)*X(end-j+i+1);
-    end
-    X(end+1) = res;
-end
+X = gauss(A, B, n)
 
-
-
-AB(1, 1)*X(1) + AB(1, 2)*X(2) + AB(1,3)*X(3) 
-X
