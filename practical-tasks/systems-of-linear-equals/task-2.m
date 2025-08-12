@@ -10,3 +10,5 @@ n = size(A, 1);
 X = cholesky_crout(A, B, n)
 
 X = gauss(A, B, n)
+
+X = cholesky_scheme(A, B, n)
