@@ -30,6 +30,6 @@ function X = gauss(A, B, n);
         end
         X(end+1) = res;
     end
-
+    X = sort(X);
     return;
 endfunction

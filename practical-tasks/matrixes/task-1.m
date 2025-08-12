@@ -1,6 +1,6 @@
 warning('off', 'Octave:missing-FcInit');
 
-fprintf("[*] Решение СЛАУ методом Гаусса\n");
+fprintf("[*] Решение СЛАУ методом Жоржана-Гаусса\n");
 fprintf("[*] Система №1:\n");
 
 A = [5.64, -4.52, 4.57;
@@ -12,6 +12,8 @@ B = [8.32; 7.21; 7.56];
 n = size([A, B], 1);
 
 X = gauss(A, B, n)
+
+X = jourdan(A, B, n)
 
 fprintf("[*] Система №2:\n");
 
@@ -25,4 +27,6 @@ B =[2.22; -5.26; 0.15; -3.74];
 n = size([A, B], 1);
 
 X = gauss(A, B, n)
+
+X = jourdan(A, B, n)
 
