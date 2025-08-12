@@ -7,5 +7,6 @@ B = [3.05; 2.75; 0.86; 2.53];
 
 n = size(A, 1);
 
-X = cholesky_crout(A, B, n);
+X = cholesky_crout(A, B, n)
 
+X = gauss(A, B, n)
