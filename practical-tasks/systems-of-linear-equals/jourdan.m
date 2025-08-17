@@ -6,7 +6,6 @@ function X = jourdan(A, B, n)
         for j = 1:n+1
             AB(k, j) = AB(k, j)/temp;
         endfor
-        %AB
         for i = 1:n
             if i ~= k
                 temp = AB(i, k); 
@@ -15,8 +14,6 @@ function X = jourdan(A, B, n)
                 endfor
             endif
         endfor
-
-        %AB
     endfor
 
     for i = 1:n
@@ -24,4 +21,5 @@ function X = jourdan(A, B, n)
     endfor
     X = sort(X);
     return;
+
 endfunction

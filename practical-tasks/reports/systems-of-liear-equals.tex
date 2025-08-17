@@ -1,0 +1,116 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[english, russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+\usepackage{caption} 
+\usepackage{listings}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true
+}
+
+\begin{document}
+    \begin{center}
+        \subsection*{Отчёт по практическим заданиям}
+        \subsection*{Прикладная математика. Лекция №3.}
+    \end{center}
+
+    \quad \textbf{Задача 1.} Найти решение системы линейных уравнений с помощью методов Жордана, Гаусса:
+    
+    \begin{center}
+
+        1) $A = \left(
+            \begin{array}{ccc}
+                5.64 & -4.52 & 4.57 \\
+                -2.17 & 1.36 & -5.53 \\
+                8.77 & -2.78 & 5.44 \\
+            \end{array}
+         \right),$ $B = \left(
+            \begin{array}{c}
+                8.32 \\
+                7.21 \\
+                7.56 \\
+            \end{array}
+         \right);\newline$
+
+         2) $A = \left(
+            \begin{array}{cccc}
+                2.34 & -1.84 & 0.32 & 0.11 \\
+                -1.19 & 0.43 & -0.52 & 3.37 \\
+                0.33 & 0.61 & 7.75 & -2.18 \\
+                -1.53 & 0.81 & 0.94 & -4.82 \\
+            \end{array}
+         \right),$ $B = \left(
+            \begin{array}{c}
+                2.22 \\
+                -5.26 \\
+                0.15 \\
+                -3.74 \\
+            \end{array}
+         \right);$
+
+    \end{center}
+
+    \quad \textbf{Решение.} (/practical-task/systems-of-linear-equals/task-1.m) Суть решения СЛАУ методом Гаусса сводится к приведению матрицы системы к правотреугольному виду (прямой ход решения), в т. ч. к виду:
+    
+    \begin{center}
+        $ A = \left(
+            \begin{array}{cccc}
+                a_{11} & a_{12} & ... & a_{1n} \\
+                0 & a_{22} & ... & a_{2n} \\
+                ... & ... & ... & ... \\
+                0 & 0 & ... & a_{nn} \\    
+            \end{array}
+        \right)$
+    \end{center}
+
+    \quad Тогда опредедение корней СЛАУ (обратный ход) происходит по формуле: 
+
+    \begin{center}
+        $x_i = \dfrac{1}{a_{i i}} (b_i - \displaystyle\sum\limits_{k=i}^{n} a_{ik} x_k) $
+    \end{center}
+
+    \quad Метод Жордана отличается от метода Гаусса в том, что матрица приводится к диогональному виду. 
+    Надо отметить что это возможно только если матрица системы не вырождена. После приведения матрицы к диагональному виду алгоритм нахождения корней тривиален.  
+
+    \quad Таким образом вектор решений первой системы $\vec{X} = (-2.5333, -2.2592, 1.7173)$, а второй $\vec{X} = (-0.8723, -0.2924, 6.4317, 6.8038)$ .
+
+    \quad \textbf{Задача 2.} Решить систему линейный уравнений используя метод Холецкого-Краута:
+
+    \begin{center}
+        $A = \left(
+            \begin{array}{cccc}
+                3.12 & 1.44 & 0.72 & -0.34 \\
+                1.44 & 2.67 & 0.35 & -0.78 \\
+                0.72 & 0.35 & 7.15 & 0.25 \\
+                -0.34 & -0.78 & 0.25 & 6.08 \\
+            \end{array}
+        \right)$, $B = \left(
+            \begin{array}{ccc}
+                3.05 \\
+                2.75 \\ 
+                0.86 \\
+                2.53 \\
+            \end{array}
+        \right)$
+    \end{center}
+
+    \quad \textbf{Решение.} (/practical-task/systems-of-linear-equals/task-2.m) Сначала решим систему общим методом Краута (частным случаем которого является схема Холецкого).
+    Для этого необходимо представить матрицу системы в виде произведения двух треугольных матриц, т. е. в виде $ A = L$
+
+\end{document}
