@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.5.16)  17 AUG 2025 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.5.16)  18 AUG 2025 09:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**systems-of-liear-equals.tex
-(./systems-of-liear-equals.tex
+**systems-of-linear-equals.tex
+(./systems-of-linear-equals.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -488,8 +488,8 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count299
 \l__pdf_internal_box=\box59
 )
-(./systems-of-liear-equals.aux)
-\openout1 = `systems-of-liear-equals.aux'.
+(./systems-of-linear-equals.aux)
+\openout1 = `systems-of-linear-equals.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
@@ -566,36 +566,50 @@ it/12 :\OT1/cmr/m/n/12 2592\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12
  []
 
 
+Overfull \hbox (0.3566pt too wide) in paragraph at lines 113--115
+[] \T2A/cmr/bx/n/12 Ре-ше-ние. \T2A/cmr/m/n/12 (/practical-task/systems-of-line
+ar-equals/task-2.m) Сна-ча-
+ []
+
+
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
-/enc/dvips/cm-super/cm-super-t2a.enc}] (./systems-of-liear-equals.aux)
+/enc/dvips/cm-super/cm-super-t2a.enc}]
+Overfull \hbox (6.55229pt too wide) in paragraph at lines 160--161
+[] \T2A/cmr/bx/n/12 Ре-ше-ние. \T2A/cmr/m/n/12 (/practical-task/systems-of-line
+ar-equals/task-3.m) Дан-ный
+ []
+
+
+
+[2] (./systems-of-linear-equals.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 7574 strings out of 474645
- 116106 string characters out of 5759193
- 514809 words of memory out of 5000000
+ 7572 strings out of 474645
+ 116123 string characters out of 5759193
+ 514811 words of memory out of 5000000
  30505 multiletter control sequences out of 15000+600000
- 567339 words of font info for 61 fonts, out of 8000000 for 9000
+ 565715 words of font info for 59 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 57i,8n,65p,385b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,10n,65p,406b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist
-/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/pu
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist
+/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/cm-super/sfrm1200.pfb>
-Output written on systems-of-liear-equals.pdf (1 page, 105505 bytes).
+Output written on systems-of-linear-equals.pdf (2 pages, 114723 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 32 compressed objects within 1 object stream
+ 57 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
