@@ -22,6 +22,7 @@ roots_1
 roots_2 
 roots_3
 
+print('../reports/.png/xsinx.png', '-dpng', '-r300');
 waitfor(gcf);
 
 % численное решение уравнения e^x - x^2 = 0
@@ -45,6 +46,7 @@ roots_1
 roots_2 
 roots_3
 
+print('../reports/.png/exx2.png', '-dpng', '-r300');
 waitfor(gcf);
 
 % численное решение уравнения x^3 + 3x^2 - 24x + 1 = 0
@@ -68,6 +70,7 @@ roots_1
 roots_2 
 roots_3
 
+print('../reports/.png/x3.png', '-dpng', '-r300');
 waitfor(gcf);
 
 
