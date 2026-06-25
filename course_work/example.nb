@@ -1,0 +1,233 @@
+In[1]:=
+
+(*Параметры*)h=10^-1;(*укрупнил для наглядности*)x0=0;
+y0=1;
+xStart=-1;
+xEnd=1;
+
+(*Точное решение*)
+exact[x_]:=Exp[x];
+
+(*Универсальный метод Эйлера:от x0 до xEnd*)
+EulerSolve[x0_,y0_,xEnd_,h_]:=Module[{nSteps,hSigned,x,y,result,i},nSteps=Round[Abs[(xEnd-x0)/h]];
+hSigned=Sign[xEnd-x0]*Abs[h];
+x=x0;
+y=y0;
+result=Table[0,{i,0,nSteps}];
+result[[1]]={x,y};
+For[i=1,i<=nSteps,i++,y=y+hSigned*y;(*f(x,y)=y*)x=x+hSigned;
+result[[i+1]]={x,y};];
+Return[result];];
+
+(*Один вызов влево,один вправо*)
+left=EulerSolve[x0,y0,xStart,h];
+right=EulerSolve[x0,y0,xEnd,h];
+
+(*Склеиваем*)
+full=Join[Reverse[Drop[left,-1]],right];
+
+(*График*)
+Show[ListLinePlot[full,PlotStyle->{Red,Thick},PlotLegends->{"Euler"}],Plot[exact[x],{x,xStart,xEnd},PlotStyle->{Blue,Dashed},PlotLegends->{"Exact"}],AxesLabel->{"x","y"},PlotLabel->"Euler method: y' = y, y(0) = 1"]
+Out[70]= Euler
+Exact
+
+
+Out[21]= Euler
+Exact
+
+
+During evaluation of In[1]:= Set::write: Tag Out in %70 is Protected.
+Out[22]= Euler
+Out[23]= Exact
+In[26]:= 
+In[27]:= eq = Cos[3*Pi*0.5 + 3*x] + Cos[Pi*0.5+x] + Cos[2*x] == 1
+Solve[eq, x]
+Out[27]= Cos[2 x]+Cos[1.5708 +x]+Cos[4.71239 +3 x]==1
+During evaluation of In[27]:= Solve::ifun: Inverse functions are being used by Solve, so some solutions may not be found; use Reduce for complete solution information.
+Out[28]= {{x->-3.14159},{x->-1.5708},{x->-1.5708},{x->0.},{x->0.523599},{x->2.61799},{x->3.14159}}
+In[32]:= Plot[{Log[3,-2 Cos[x]],-Sin[x]},{x, 0,2 Pi}]
+Out[32]= 
+In[34]:= FindRoot[Log[3,-2 Cos[x]]+Sin[x]==0,{x,2.0}]
+Out[34]= {x->1.74095}
+In[35]:= a =1.74+2 Pi 
+Print[a]
+Out[35]= 8.02319
+During evaluation of In[35]:= 8.02319
+In[37]:= (*Точки*)points={{0,2},{1,3},{2,6}};
+
+(*Полином Лагранжа вручную*)
+n=Length[points]-1;
+L[x_]:=Sum[points[[i+1,2]]*Product[If[i==j,1,(x-points[[j+1,1]])/(points[[i+1,1]]-points[[j+1,1]])],{j,0,n}],{i,0,n}];
+
+(*Вывод*)
+Print["Полином Лагранжа: L(x) = ",Simplify[L[x]]];
+
+(*График*)
+Show[Plot[L[x],{x,-0.5,2.5},PlotStyle->Blue,PlotLegends->{"L(x)"}],ListPlot[points,PlotStyle->{Red,PointSize[0.02]},PlotLegends->{"Точки"}],AxesLabel->{"x","y"},PlotLabel->"Интерполяционный полином Лагранжа"]
+During evaluation of In[37]:= Полином Лагранжа: L(x) = 2+x^2
+Out[41]= L(x)
+Точки
+
+
+In[42]:= (*Функция*)f[x_]:=Sin[x];
+
+(*Узлы*)
+points=Table[{x,f[x]},{x,{0,Pi/4,Pi/2}}];
+
+(*Полином Лагранжа*)
+L[x_]=InterpolatingPolynomial[points,x];
+Print["L(x) = ",Simplify[L[x]]];
+
+(*Погрешность*)
+error[x_]=f[x]-L[x];
+
+(*Оценка сверху*)
+M3=MaxValue[{Abs[D[f[x],{x,3}]],0<=x<=Pi/2},x];
+omega[x_]=Product[(x-points[[i,1]]),{i,1,Length[points]}];
+maxOmega=MaxValue[{Abs[omega[x]],0<=x<=Pi/2},x];
+bound=M3/6*maxOmega;
+Print["M3 = ",M3];
+Print["max |omega| = ",maxOmega];
+Print["Теоретическая оценка = ",N[bound]];
+
+(*Максимальная фактическая погрешность*)
+maxError=MaxValue[{Abs[error[x]],0<=x<=Pi/2},x];
+Print["Фактическая max погрешность = ",N[maxError]];
+
+(*График погрешности*)
+Plot[error[x],{x,0,Pi/2},PlotLabel->"Погрешность интерполяции sin x",AxesLabel->{"x","f(x) - L(x)"},Filling->Axis]
+During evaluation of In[42]:= L(x) = -((2 x (π-2 Sqrt[2] π+4 (-1+Sqrt[2]) x))/π^2)
+During evaluation of In[42]:= M3 = 1
+During evaluation of In[42]:= max |omega| = -(1/8) (π/4+π/(4 Sqrt[3])) (π-4 (π/4+π/(4 Sqrt[3]))) (π-2 (π/4+π/(4 Sqrt[3])))
+During evaluation of In[42]:= Теоретическая оценка = 0.031079
+During evaluation of In[42]:= Фактическая max погрешность = 0.0235369
+Out[56]= 
+In[57]:= (*Точки*)points={{0,2},{1,3},{2,6}};
+n=Length[points]-1;
+h=Table[points[[i+1,1]]-points[[i,1]],{i,1,n}];
+y=points[[All,2]];
+
+(*Правая часть*)
+d=Table[0,{i,0,n}];
+For[i=2,i<=n,i++,d[[i]]=(y[[i+1]]-y[[i]])/h[[i]]-(y[[i]]-y[[i-1]])/h[[i-1]];];
+
+(*Матрица*)
+A=Table[0,{n+1},{n+1}];
+A[[1,1]]=1;A[[n+1,n+1]]=1;(*граничные*)For[i=2,i<=n,i++,A[[i,i-1]]=h[[i-1]]/6;
+A[[i,i]]=(h[[i-1]]+h[[i]])/3;
+A[[i,i+1]]=h[[i]]/6;];
+
+(*Решение*)
+M=LinearSolve[A,d];
+Print["M = ",M];
+During evaluation of In[57]:= M = {0,3,0}
+In[67]:= (*Точки*)points={{0,2},{1,3},{2,6}};
+
+(*Естественный кубический сплайн*)
+spline=Interpolation[points,Method->"Spline",InterpolationOrder->3];
+
+(*Наш ручной сплайн для проверки*)
+S0[x_]:=2+0.5 x+0.5 x^3;
+S1[x_]:=3+2 (x-1)+1.5 (x-1)^2-0.5 (x-1)^3;
+S[x_]:=Piecewise[{{S0[x],0<=x<=1},{S1[x],1<x<=2}}];
+
+(*График*)
+Show[Plot[{spline[x],S[x]},{x,0,2},PlotStyle->{{Blue,Thick},{Red,Dashed}},PlotLegends->{"Встроенный","Ручной"}],ListPlot[points,PlotStyle->{PointSize[0.03],Green}],PlotLabel->"Кубический сплайн",AxesLabel->{"x","y"}]
+
+(*Вывод формул*)
+Print["S0(x) = ",Simplify[S0[x]]];
+Print["S1(x) = ",Simplify[S1[x]]];
+
+(*Таблица значений*)
+TableForm[Table[{x,S[x]},{x,0,2,0.25}],TableHeadings->{None,{"x","S(x)"}}]
+During evaluation of In[67]:= Interpolation::inhr: Requested order is too high; order has been reduced to {2}.
+Out[72]= 	Встроенный
+	Ручной
+
+
+During evaluation of In[67]:= S0(x) = 2+0.5 x+0.5 x^3
+During evaluation of In[67]:= S1(x) = 3. -2.5 x+3. x^2-0.5 x^3
+Out[75]//TableForm= x	S(x)
+0.	2.
+0.25	2.13281
+0.5	2.3125
+0.75	2.58594
+1.	3.
+1.25	3.58594
+1.5	4.3125
+1.75	5.13281
+2.	6.
+
+
+In[76]:= (*Точки для интерполяции*)points={{0,2},{1,3},{2,6}};
+xVals=points[[All,1]];
+yVals=points[[All,2]];
+n=Length[points];
+
+(*Кубический сплайн (k=4)*)
+k=4;
+
+(*Расширенный вектор узлов:кратные концы+внутренние узлы*)
+a=xVals[[1]];
+b=xVals[[-1]];
+t=Join[Table[a,{k}],Table[a+i*(b-a)/(n-1),{i,1,n-2}],Table[b,{k}]];
+Print["Вектор узлов t = ",t];
+
+(*Число B-сплайнов*)
+nBasis=Length[t]-k;
+Print["Число B-сплайнов = ",nBasis];
+
+(*Базисные функции*)
+B[i_,x_]:=BSplineBasis[{k-1,t},i,x];
+
+(*График всех B-сплайнов*)
+Print["=== Базисные функции ==="];
+Plot[Table[B[i,x],{i,0,nBasis-1}],{x,a,b},PlotRange->All,PlotLegends->Table["B"<>ToString[i],{i,0,nBasis-1}],AxesLabel->{"x","B_{i,k}(x)"},PlotLabel->"Кубические B-сплайны",Filling->Axis]
+
+(*Матрица системы:A_{i,j}=B_j(x_i)*)
+A=Table[B[j,xVals[[i+1]]],{i,0,n-1},{j,0,nBasis-1}];
+Print["Матрица системы A:"];
+MatrixForm[A]
+
+(*Решаем Ac=y*)
+c=LinearSolve[A,yVals];
+Print["Коэффициенты c = ",c];
+
+(*Построенный сплайн*)
+S[x_]:=Sum[c[[j+1]]*B[j,x],{j,0,nBasis-1}];
+
+(*Сравнение с встроенным сплайном*)
+builtin=Interpolation[points,Method->"Spline",InterpolationOrder->3];
+
+(*График:точки,B-сплайн,встроенный сплайн*)
+Print["=== Результат ==="];
+Show[ListPlot[points,PlotStyle->{Red,PointSize[0.03]},PlotLegends->{"Точки"}],Plot[S[x],{x,a,b},PlotStyle->{Blue,Thick},PlotLegends->{"B-сплайн"}],Plot[builtin[x],{x,a,b},PlotStyle->{Green,Dashed,Thick},PlotLegends->{"Встроенный"}],AxesLabel->{"x","y"},PlotLabel->"Интерполяция B-сплайнами"]
+
+(*Проверка*)
+Print["Проверка в точках:"];
+TableForm[Table[{xVals[[i]],S[xVals[[i]]],yVals[[i]]},{i,1,n}],TableHeadings->{None,{"x","S(x)","y"}}]
+During evaluation of In[76]:= Вектор узлов t = {0,0,0,0,1,2,2,2,2}
+During evaluation of In[76]:= Число B-сплайнов = 5
+During evaluation of In[76]:= === Базисные функции ===
+Out[89]= B0
+During evaluation of In[76]:= Матрица системы A:
+
+Out[92]//MatrixForm= (1	0	0	0	0
+0	1/4	1/2	1/4	0
+0	0	0	0	1
+
+)
+During evaluation of In[76]:= Коэффициенты c = {2,12,0,0,6}
+During evaluation of In[76]:= Interpolation::inhr: Requested order is too high; order has been reduced to {2}.
+During evaluation of In[76]:= === Результат ===
+Out[98]= Точки
+B-сплайн
+Встроенный
+
+
+During evaluation of In[76]:= Проверка в точках:
+Out[100]//TableForm= x	S(x)	y
+0	2	2
+1	3	3
+2	6	6
+
