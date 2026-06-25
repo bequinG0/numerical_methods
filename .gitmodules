@@ -1,0 +1,3 @@
+[submodule "course_work/diffcore-cpp"]
+	path = course_work/diffcore-cpp
+	url = https://github.com/bequ1n/diffcore-cpp
