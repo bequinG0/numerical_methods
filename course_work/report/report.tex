@@ -15,6 +15,8 @@
 \usepackage{caption}
 \usepackage{tikz}
 \usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
 \geometry{
 	a4paper,
 	top=24mm,
@@ -60,16 +62,40 @@
 \renewcommand{\@biblabel}[1]{#1.}   % нумерация "1.", "2."
 \makeatother
 
+\lstset{
+	language=C++,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	commentstyle=\color{gray},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	frame=single,
+	rulecolor=\color{black},
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	title=\lstname,
+	escapeinside={\%*}{*)},
+	morekeywords={auto, constexpr, nullptr, noexcept, override, static_assert, decltype, std, cout, endl}
+}
+
 \begin{document}
 	\begin{center}
 		\subsubsection*{Курсовая работа по численным методам: }
-		\subsubsection* {"Решение краевых задач для ОДУ второго порядка"}
 		\subsubsection*{Выполнил студент третьего курса Физико-механического института, высшей школы ФФИ: Куликовских Илья}
 		\subsubsection*{Группа: 5030302/30801}
 		\subsubsection*{Преподаватель: Веселова Ирина Юрьевна}
 	\end{center}
 	
-	\quad \textbf{Постановка задачи.} Используя интегро-интерполяционный метод , найти приближённое решение краевой задачи (выдаётся преподавателем) со вторым порядком аппроксимации уравнения и краевых условий на равномерной сетке. Исследовать зависимость погрешности решения от количества разбиений:
+	\quad \textbf{Задача (5.3. Решение краевых задач для ОДУ второго порядка)} Используя интегро-интерполяционный метод , найти приближённое решение краевой задачи (выдаётся преподавателем) со вторым порядком аппроксимации уравнения и краевых условий на равномерной сетке. Исследовать зависимость погрешности решения от количества разбиений:
 	
 	\begin{equation}
 		-\left[\dfrac{d}{dx} \left((4 - x) \dfrac{du}{dx}\right) - 2u\right] = \dfrac{10(x^2 -5x + 9)}{e^x}
@@ -111,21 +137,60 @@
 	\quad В итоге задача сводится к решению системы линейных уравнений:
 	
 	\begin{equation}
-		A \mathbf{u} = \mathbf{b} \quad \Leftrightarrow \quad
-		\begin{pmatrix}
-			-\dfrac{k\!\left(x_i - \frac{h}{2}\right)}{h^2}
-			& \dfrac{k\!\left(x_i - \frac{h}{2}\right) + k\!\left(x_i + \frac{h}{2}\right)}{h^2} - q(x_i)
-			& -\dfrac{k\!\left(x_i + \frac{h}{2}\right)}{h^2}
-		\end{pmatrix}
-		\begin{pmatrix}
-			u_{i-1} \\ u_i \\ u_{i+1}
-		\end{pmatrix}
-		= f(x_i).
+		\begin{array}{c}
+			A \mathbf{u} = \mathbf{b} \quad \Leftrightarrow \quad
+			\begin{pmatrix}
+				-\dfrac{k\!\left(x_i - \frac{h}{2}\right)}{h^2}
+				& \dfrac{k\!\left(x_i - \frac{h}{2}\right) + k\!\left(x_i + \frac{h}{2}\right)}{h^2} - q(x_i)
+				& -\dfrac{k\!\left(x_i + \frac{h}{2}\right)}{h^2}
+			\end{pmatrix}
+			\begin{pmatrix}
+				u_{i-1} \\ u_i \\ u_{i+1}
+			\end{pmatrix}
+			= f(x_i). \\
+			\forall i \in [1, N-1]\cap\mathbb{N}
+		\end{array} \blacksquare
 	\end{equation}
 	
+	\quad Теперь покажем какой порядок сходимости имеет данная схема $\bigg($ перейдём к обозначениям $u(x_i) = u_i, u\left(x_i \pm \dfrac{h}{2}\right) = u_{i \pm \frac{1}{2}}\bigg)$. Разложим решение в узле $x_i$ в ряд Тейлора: 
+	
 	\begin{center}
-		$\forall i \in [1, N-1]\cap\mathbb{N}$
+		$u = u_i + \dfrac{du_i}{dx} (x-x_i) + \dfrac{d^2 u_i}{dx} \dfrac{(x-x_i)^2}{2} + \dfrac{d^3 u_i}{dx^3} \dfrac{(x-x_i)^3}{6} + \dfrac{d^4 u_i}{dx^4} \dfrac{(x-x_i)^4}{24} + o((x-x_i)^5)$
+		
+		$\newline$
+		
+		$u_{i+1} = u_i + \dfrac{du_i}{dx} h + \dfrac{d^2 u_i}{dx^2} \dfrac{h^2}{2} + \dfrac{d^3 u_i}{dx^3} \dfrac{h^3}{6} + \dfrac{d^4 u_i}{dx^4} \dfrac{h^4}{24}, \quad u_{i-1} = u_i - \dfrac{du_i}{dx}h + \dfrac{d^2 u_i}{dx^2} \dfrac{h^2}{2} - \dfrac{d^3 u_i}{dx^3} \dfrac{h^3}{6} + \dfrac{d^4 u_i}{dx^4} \dfrac{h^4}{24} $
+		
+		$\newline$
+		
+		$k = k_i + \dfrac{dk_i}{dx} (x-x_i) + \dfrac{d^2 k_i}{dx^2} \dfrac{(x-x_i)^2}{2} + o((x-x_i)^3)$
+		
+		$\newline$
+		
+		$k_{i+\frac{1}{2}} = k_i + \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx} \dfrac{h^2}{8}, \quad k_{i-\frac{1}{2}} = k_i - \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx^2} \dfrac{h^2}{8}$
 	\end{center}
+	
+	\begin{equation}
+		-\dfrac{k_{i-\frac{1}{2}}}{h^2} u_{i-1} + \dfrac{k_{i-\frac{1}{2}} + k_{i+\frac{1}{2}}}{h^2} u_i - \dfrac{k_{i+\frac{1}{2}}}{h^2} u_{i+1} = \dfrac{1}{h^2}\bigg(k_{i-\frac{1}{2}} (u_i - u_{i-1}) - k_{i+\frac{1}{2}} (u_{i+1} - u_i) \bigg)
+	\end{equation}
+	
+	\begin{equation}
+		\begin{aligned}
+			k_{i-\frac{1}{2}} (u_i - u_{i-1}) - k_{i+\frac{1}{2}} (u_{i+1} - u_i)
+			&= -k_i \dfrac{d^2 u_i}{dx^2} h^2 - \dfrac{d k_i}{dx} \dfrac{du_i}{dx} h^2 \\
+			&\quad - k_i \dfrac{d^4 u}{dx^4} \dfrac{h^4}{12} - \dfrac{dk_i}{dx} \dfrac{d^3 u_i}{dx^3} \dfrac{h^4}{6} \quad - \dfrac{d^2 k_i}{dx^2} \dfrac{d^2 u_i}{dx^2} \dfrac{h^4}{8} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^4 u_i}{dx^4} \dfrac{h^6}{96}.
+		\end{aligned}
+	\end{equation}
+	
+	\begin{equation}
+		\underbrace{-k_i \dfrac{d^2 u_i}{dx^2} - \dfrac{dk_i}{dx} \dfrac{du_i}{dx} }_{-\frac{d}{dx} \left(k_i \frac{du}{dx}\right) = f_i + q_i u_i} - k_i \dfrac{d^4 u_i}{dx} \dfrac{h^2}{12} - \dfrac{dk_i}{dx} \dfrac{d^3 u_i}{dx^3} \dfrac{h^2}{6} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^2 u_i}{dx^2} \dfrac{h^2}{8} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^4 u_i}{dx^4} \dfrac{h^4}{96} - q_i u_i = f_i
+	\end{equation}
+	
+	\quad После сокращения учтём, что $\dfrac{d^2 k_i}{dx^2} \dfrac{d^4 u_i}{dx^4} \dfrac{h^4}{96} = o(h^2), \quad h \to 0$, тогда выражение для невязки: 
+	
+	\begin{equation}
+		\psi_{i, h} = - k_i \dfrac{d^4 u_i}{dx^4} \dfrac{h^2}{12} - \dfrac{dk_i}{dx} \dfrac{d^3 u_i}{dx^3} \dfrac{h^2}{6} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^2 u_i}{dx^2} \dfrac{h^2}{8}, \quad \|\psi_{i, h}\|_{\infty} \leq Const_{i} h^2 \quad \blacksquare
+	\end{equation}
 	
 	\quad Прямое численное решение краевой задачи (1)-(2) имеет вид: 
 	
@@ -136,7 +201,102 @@
 		\label{fig:solve}
 	\end{figure}
 	
-	\quad Построим зависимость чебышёвской номы погрешности от числа разбиений. Возьмём пробную функцию -- полином второго порядка $ u_{exact} = x^2 - x - 6$ и подставим уравнение (1) для определения явного вида правой части $f_{exact}(x)$:
+	\begin{lstlisting}[caption={Прямое численное решение краевой задачи}, label={lst:main}]
+		double a = 0, b = 2;
+		double h = 0.01;
+		int N = (b - a) / h;
+		
+		function<double(double)> k = [](double x) -> double { return 4.0 - x; };
+		function<double(double)> q = [](double x) -> double { return 2.0; };
+		function<double(double)> f = [](double x) -> double { return (10.0 * (x*x - 5.0*x + 9.0)) / exp(x); };
+		
+		auto euler = [](double x, double y, double h, auto f) { return y + h * f(x, y); };
+		
+		auto DSK2 = [&](int i, double h, double left) -> array<double, 4> {
+			double xi = left + i * h;
+			double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+			double h2 = h * h;
+			return {
+				-k(xL) / h2,
+				(k(xL) + k(xR)) / h2 - q(xi),
+				-k(xR) / h2,
+				f(xi)
+			};
+		};
+		
+		DiffScheme scheme(h, euler, DSK2);
+		
+		auto left  = make_unique<DirichletCondition>(0, 2.0);
+		auto right = make_unique<DirichletCondition>(N, 20.0 * exp(-2.0));
+		
+		BVP task(a, b, h, k, q, f, move(left), move(right), move(scheme));
+		auto ans = task.solve();
+		vector<double> lambda = task.eigenvalues();
+		
+		Plot::draw(ans.first, {ans.second}, "solve", {"u(x)"});
+	\end{lstlisting}
+	
+	\quad \textit{Формулировка теста с нулевой погрешностью:} выберем полином второго порядка $u_{test} = x^2 - x -6$ и подставим в исходное уравнение (1). По известному виду функций $k(x)$, $q(x)$ определяем вид правой части $f_{test} (x)$. Ставим новую краевую задачу: 
+	
+	\begin{equation}
+		-\left[\dfrac{d}{dx} \left((4-x)\dfrac{du}{dx}\right) - 2u\right] = -2x^2 + 6x + 3
+	\end{equation} 
+	
+	\quad С граничными условиями: 
+	
+	\begin{equation}
+		u\bigg|_{x=0} = -6 \quad u\bigg|_{x=2} = -4 
+	\end{equation}
+	
+	\quad Прямое численное решение задачи (12)-(13) имеет вид:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{zero-test.png}
+		\caption{Тест с нулевой погрешностью}
+		\label{fig:solve}
+	\end{figure}
+	
+	\begin{lstlisting}[caption={Тест с нулевой погрешностью}, label={lst:main}]
+		auto u_exact = [](double x) { return x*x - x - 6.0; };
+		
+		function<double(double)> f_test = [](double x) {
+			return -2.0*x*x + 6.0*x + 3.0;
+		};
+		
+		auto left_test  = make_unique<DirichletCondition>(0, -6.0);
+		auto right_test = make_unique<DirichletCondition>(N, -4.0);
+		
+		auto DSK2_test = [&](int i, double h, double left) -> array<double, 4> {
+			double xi = left + i * h;
+			double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+			double h2 = h * h;
+			return {
+				-k(xL) / h2,
+				(k(xL) + k(xR)) / h2 - q(xi),
+				-k(xR) / h2,
+				f_test(xi)
+			};
+		};
+		
+		DiffScheme scheme_test(h, euler, DSK2_test);
+		
+		BVP null_task(a, b, h, k, q, f_test,
+		move(left_test), move(right_test), move(scheme_test));
+		
+		auto null_ans = null_task.solve();
+		
+		vector<double> delta;
+		for(size_t i = 0; i < null_ans.first.size(); i++)
+		delta.push_back(abs(null_ans.second[i] - u_exact(null_ans.first[i])));
+		
+		double m = *max_element(delta.begin(), delta.end());
+		cout << "[*] max delta: " << m << "\n";
+		
+		Plot::draw(null_ans.first, {null_ans.second}, "Zero-error test", {"u_h(x)"});
+	\end{lstlisting}
+	
+	\quad Построим зависимость чебышёвской нормы погрешности от числа разбиений:
 	
 	\begin{table}[H]
 		\centering
@@ -154,4 +314,6 @@
 		\end{tabular}
 	\end{table}
 	
-\end{document}
+	
+	
+\end{document} 
