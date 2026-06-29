@@ -43,7 +43,6 @@ int main()
 
     BVP task(a, b, h, k, q, f, move(left), move(right), move(scheme));
     auto ans = task.solve();
-    vector<double> lambda = task.eigenvalues();
 
     Plot::draw(ans.first, {ans.second}, "solve", {"u(x)"});
 
@@ -86,14 +85,15 @@ int main()
     Plot::draw(null_ans.first, {null_ans.second}, "Zero-error test", {"u_h(x)"}); 
 
     // Тест с ненулевой погрешностью
-    auto u_exact_notnull = [](double x) { return exp(x); };
+    h = 0.00625; N = (b-a)/h;
+    vector <double> x_test = {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 1.9};
 
     function<double(double)> f_test_notnull = [](double x) {
-        return (x - 1.0) * exp(x);
+        return (10.0 * (x*x - 5.0*x + 9.0)) / exp(x);
     };
 
-    auto left_notnull  = make_unique<DirichletCondition>(0, 1.0);
-    auto right_notnull = make_unique<DirichletCondition>(N, exp(2.0));
+    auto left_notnull  = make_unique<DirichletCondition>(0, 2.0);
+    auto right_notnull = make_unique<DirichletCondition>(N, 20*exp(-2.0));
 
     auto DSK2_notnull = [&](int i, double h, double left) -> array<double, 4> {
         double xi = left + i * h;
@@ -101,7 +101,7 @@ int main()
         double h2 = h * h;
         return {
             -k(xL) / h2,
-            (k(xL) + k(xR)) / h2 + q(xi),
+            (k(xL) + k(xR)) / h2 - q(xi),
             -k(xR) / h2,
             f_test_notnull(xi)
         };
@@ -113,12 +113,21 @@ int main()
         move(left_notnull), move(right_notnull), move(scheme_notnull));
 
     auto ans_notnull = task_notnull.solve();
+    
+    cout << "[*] u(x_i) from " << h << "\n";
+    for(int i=0; i<ans_notnull.first.size(); i++)
+    {
+        for(auto e : x_test)
+        {
+            if(e == ans_notnull.first[i]) cout << ans_notnull.first[i] << " " << ans_notnull.second[i] << "\n";
+        }
+    }
 
     double err_notnull = 0.0;
-    for (size_t i = 0; i < ans_notnull.first.size(); ++i)
-        err_notnull = max(err_notnull, abs(ans_notnull.second[i] - u_exact_notnull(ans_notnull.first[i])));
+    
+    Plot::draw(ans_notnull.first, {ans_notnull.second}, "NotZero-error test", {"u_h(x)"});
 
-    cout << "[*] Non-zero test max delta: " << err_notnull << "\n";
+    //Решение задачи Штурма-Лиувилля
 
     return 0;
 }

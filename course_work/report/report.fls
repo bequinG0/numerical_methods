@@ -319,6 +319,11 @@ INPUT ./zero-test.png
 INPUT ./zero-test.png
 INPUT ./zero-test.png
 INPUT /home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm0800.tfm
+INPUT ./notzero-test.png
+INPUT ./notzero-test.png
+INPUT ./notzero-test.png
+INPUT ./notzero-test.png
+INPUT ./notzero-test.png
 INPUT report.aux
 INPUT ./report.out
 INPUT ./report.out
