@@ -13,53 +13,69 @@ using namespace std;
 
 int main()
 {
+
+    // Задача вариант D1
     double a = 0, b = 2;
-    double h = 0.01;
-    int N = (b - a) / h;
+    double h = 0.025; int N = (b - a) / h;
+    cout << "\n[*] D1 eigenvalue problem, h = " << h << "\n";
+    auto euler = [](double, double y, double h, auto) { return y; }; 
+    function<double(double)> k_d1 = [](double x) -> double { return 4.0 - x; };
+    function<double(double)> q_d1 = [](double x) -> double { return 2; };
+    function<double(double)> f_zero = [](double x) -> double { return 0.0; };
 
-    function<double(double)> k = [](double) { return 1.0; };
-    function<double(double)> q = [](double) { return 0.0; };
-    function<double(double)> f = [](double) { return 0.0; };
+    auto left_d1  = make_unique<DirichletCondition>(0, 0.0);
+    auto right_d1 = make_unique<DirichletCondition>(N, 20*exp(-2));
 
-    auto euler = [](double, double y, double h, auto) { return y; }; // не используется, но нужен
-
-    auto DSK2 = [&](int i, double h, double left) -> array<double, 4> {
+    auto DSK2_d1 = [&](int i, double h, double left) -> array<double, 4> {
         double xi = left + i * h;
         double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
         double h2 = h * h;
-        return { -1.0/h2, 2.0/h2, -1.0/h2, 0.0 };
+        return {
+            -k_d1(xL) / h2,
+            (k_d1(xL) + k_d1(xR)) / h2 - q_d1(xi),
+            -k_d1(xR) / h2,
+            f_zero(xi)
+        };
     };
 
-    DiffScheme scheme(h, euler, DSK2);
-    auto left  = make_unique<DirichletCondition>(0, 0.0);
-    auto right = make_unique<DirichletCondition>(N, 0.0);
+    DiffScheme scheme_d1(h, euler, DSK2_d1);
 
-    BVP task(a, b, h, k, q, f, move(left), move(right), move(scheme));
-    auto [lambdas, vectors] = task.eigenSolve();
-    auto [lam1, lam2] = lambdas;
+    BVP task_d1(a, b, h, k_d1, q_d1, f_zero,
+        move(left_d1), move(right_d1), move(scheme_d1));
+
+    auto [lambdas, vectors] = task_d1.eigenSolve();
+    auto [lambda1, lambda2] = lambdas;
     auto [u1, u2] = vectors;
 
-    double L = b - a;
-    double exact1 = M_PI * M_PI / (L * L);
-    double exact2 = 4.0 * M_PI * M_PI / (L * L);
+    cout << "lambda1 = " << lambda1 << "\n";
+    cout << "lambda2 = " << lambda2 << "\n";
 
-    cout << "lambda1 = " << lam1 << " (exact: " << exact1 << ")\n";
-    cout << "lambda2 = " << lam2 << " (exact: " << exact2 << ")\n";
+    // Нормировка u1
+    double max_u1 = abs(u1[N/2]);
+    for (auto& v : u1) v /= max_u1;
+    if (u1[N/2] < 0) for (auto& v : u1) v = -v;
 
-    //Нормировка
-    double max1 = abs(u1[N/2]), max2 = abs(u2[N/4]);
-    for (auto& v : u1) v /= max1;
-    for (auto& v : u2) v /= max2;
+    // Нормировка u2
+    double max_u2 = 0.0;
+    for (int i = 0; i <= N; ++i)
+        if (abs(u2[i]) > max_u2) max_u2 = abs(u2[i]);
+    for (auto& v : u2) v /= max_u2;
+    if (u2[N/4] < 0) for (auto& v : u2) v = -v;
 
-    vector<double> x(N+1), u1_ex(N+1), u2_ex(N+1);
-    for (int i = 0; i <= N; ++i) {
-        x[i] = a + i * h;
-        u1_ex[i] = sin(M_PI * x[i] / L);
-        u2_ex[i] = sin(2.0 * M_PI * x[i] / L);
+    vector<double> x_d1(N+1);
+    for (int i = 0; i <= N; ++i) x_d1[i] = a + i * h;
+
+    // Вывод значений в точках
+    vector<double> x_out = {0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0};
+    cout << "x\tu1(x)\t\tu2(x)\n";
+    for (double xi : x_out) {
+        int idx = static_cast<int>(xi / h + 0.5);
+        if (idx >= 0 && idx <= N)
+            printf("%.1f\t%.6f\t%.6f\n", xi, u1[idx], u2[idx]);
     }
 
-    Plot::draw(x, {u1}, "u1(x)", {"numeric", "exact"});
-    Plot::draw(x, {u2}, "u2(x)", {"numeric", "exact"});
+    Plot::draw(x_d1, {u1}, "D1 eigenfunction u1(x)", {"u1(x)"});
+    Plot::draw(x_d1, {u2}, "D1 eigenfunction u2(x)", {"u2(x)"});
 
     return 0;
 }

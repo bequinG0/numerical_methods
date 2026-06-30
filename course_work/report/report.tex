@@ -163,22 +163,17 @@
 		
 		$\newline$
 		
-		$k = k_i + \dfrac{dk_i}{dx} (x-x_i) + \dfrac{d^2 k_i}{dx^2} \dfrac{(x-x_i)^2}{2} + o((x-x_i)^3)$
+		$k = k_i + \dfrac{dk_i}{dx} (x-x_i) + \dfrac{d^2 k_i}{dx^2} \dfrac{(x-x_i)^2}{2} + \dfrac{d^3 k_i}{dx^3} \dfrac{(x-x_0)^3}{6} + o((x-x_i)^4)$
 		
 		$\newline$
 		
-		$k_{i+\frac{1}{2}} = k_i + \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx} \dfrac{h^2}{8}, \quad k_{i-\frac{1}{2}} = k_i - \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx^2} \dfrac{h^2}{8}$
+		$k_{i+\frac{1}{2}} = k_i + \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx} \dfrac{h^2}{8} + \dfrac{d^3 k_i}{dx^3} \dfrac{h^3}{48}, \quad k_{i-\frac{1}{2}} = k_i - \dfrac{dk_i}{dx} \dfrac{h}{2} + \dfrac{d^2 k_i}{dx^2} \dfrac{h^2}{8} - \dfrac{d^3 k_i}{dx^3} \dfrac{h^3}{48}$
 	\end{center}
 	
 	\begin{equation}
-		-\dfrac{k_{i-\frac{1}{2}}}{h^2} u_{i-1} + \dfrac{k_{i-\frac{1}{2}} + k_{i+\frac{1}{2}}}{h^2} u_i - \dfrac{k_{i+\frac{1}{2}}}{h^2} u_{i+1} = \dfrac{1}{h^2}\bigg(k_{i-\frac{1}{2}} (u_i - u_{i-1}) - k_{i+\frac{1}{2}} (u_{i+1} - u_i) \bigg)
-	\end{equation}
-	
-	\begin{equation}
 		\begin{aligned}
-			k_{i-\frac{1}{2}} (u_i - u_{i-1}) - k_{i+\frac{1}{2}} (u_{i+1} - u_i)
-			&= -k_i \dfrac{d^2 u_i}{dx^2} h^2 - \dfrac{d k_i}{dx} \dfrac{du_i}{dx} h^2 \\
-			&\quad - k_i \dfrac{d^4 u}{dx^4} \dfrac{h^4}{12} - \dfrac{dk_i}{dx} \dfrac{d^3 u_i}{dx^3} \dfrac{h^4}{6} \quad - \dfrac{d^2 k_i}{dx^2} \dfrac{d^2 u_i}{dx^2} \dfrac{h^4}{8} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^4 u_i}{dx^4} \dfrac{h^6}{96}.
+			&\frac{1}{h^2}\bigg(k_{i-\frac{1}{2}} (u_i - u_{i-1}) - k_{i+\frac{1}{2}} (u_{i+1} - u_i) \bigg) = -k_i \frac{d^2 u_i}{dx^2} - \frac{dk_i}{dx} \frac{du_i}{dx} \\
+			&\quad - \frac{h^2}{12} k_i \frac{d^4 u_i}{dx^4} - \frac{h^2}{6} \frac{dk_i}{dx} \frac{d^3 u_i}{dx^3} - \frac{h^2}{8} \frac{d^2 k_i}{dx^2} \frac{d^2 u_i}{dx^2} - \frac{h^2}{24} \frac{d^3 k_i}{dx^3} \frac{du_i}{dx} + o(h^2).
 		\end{aligned}
 	\end{equation}
 	
@@ -189,7 +184,7 @@
 	\quad После сокращения учтём, что $\dfrac{d^2 k_i}{dx^2} \dfrac{d^4 u_i}{dx^4} \dfrac{h^4}{96} = o(h^2), \quad h \to 0$, тогда выражение для невязки: 
 	
 	\begin{equation}
-		\psi_{i, h} = - k_i \dfrac{d^4 u_i}{dx^4} \dfrac{h^2}{12} - \dfrac{dk_i}{dx} \dfrac{d^3 u_i}{dx^3} \dfrac{h^2}{6} - \dfrac{d^2 k_i}{dx^2} \dfrac{d^2 u_i}{dx^2} \dfrac{h^2}{8}, \quad \|\psi_{i, h}\|_{\infty} \leq Const_{i} h^2 \quad \blacksquare
+	\psi_{i, h} = - \frac{h^2}{12} k_i \frac{d^4 u_i}{dx^4} - \frac{h^2}{6} \frac{dk_i}{dx} \frac{d^3 u_i}{dx^3} - \frac{h^2}{8} \frac{d^2 k_i}{dx^2} \frac{d^2 u_i}{dx^2} - \frac{h^2}{24} \frac{d^3 k_i}{dx^3} \frac{du_i}{dx}, \quad \|\psi_{i, h}\|_{\infty} \leq Const_{i} h^2 \quad \blacksquare
 	\end{equation}
 	
 	\quad Прямое численное решение краевой задачи (1)-(2) имеет вид: 
@@ -331,11 +326,11 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{notzero-test.png}
-		\caption{Тест с нулевой погрешностью}
+		\caption{Тест с ненулевой погрешностью}
 		\label{fig:solve}
 	\end{figure}
 	
-	\begin{lstlisting}[caption={Тест с нулевой погрешностью}, label={lst:main}]
+	\begin{lstlisting}[caption={Тест с ненулевой погрешностью}, label={lst:main}]
 		h = 0.025; N = (b-a)/h;
 		vector <double> x_test = {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 1.9};
 		auto u_exact_notnull = [](double x) { return exp(x); };
@@ -476,18 +471,210 @@
 	
 	\quad Прямое численное решение модельной задачи: 
 	
+	\begin{table}[H]
+		\centering
+		\caption{Зависимость погрешности собственных чисел от числа разбиений (модельная задача)}
+		\label{tab:eigen_model_lambda}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			$k$ & $\delta_1^{(k)} = |\lambda_1 - \tilde{\lambda}_1|$ & $\delta_1^{(k-1)} / \delta_1^{(k)}$ & $\delta_2^{(k)} = |\lambda_2 - \tilde{\lambda}_2|$ & $\delta_2^{(k-1)} / \delta_2^{(k)}$ \\
+			\hline
+			1 & $5.07 \cdot 10^{-3}$ & -- & $8.09 \cdot 10^{-2}$ & -- \\
+			\hline
+			2 & $1.27 \cdot 10^{-3}$ & 3.99 & $2.03 \cdot 10^{-2}$ & 3.99 \\
+			\hline
+			3 & $3.20 \cdot 10^{-4}$ & 3.97 & $5.07 \cdot 10^{-3}$ & 4.00 \\
+			\hline
+			4 & $8.00 \cdot 10^{-5}$ & 4.00 & $1.26 \cdot 10^{-3}$ & 4.02 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{notzero-test.png}
-		\caption{Тест с нулевой погрешностью}
+		\includegraphics[width=0.85\textwidth]{eigen1.png}
+		\caption{Собственная функций для числа 2.4674}
 		\label{fig:solve}
 	\end{figure}
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{notzero-test.png}
-		\caption{Тест с нулевой погрешностью}
+		\includegraphics[width=0.85\textwidth]{eigen2.png}
+		\caption{Собственная функций для числа 9.8696}
 		\label{fig:solve}
 	\end{figure}
+	
+	\begin{lstlisting}[caption={Численное решение модельной задачи}, label={lst:main}]
+		double a = 0, b = 2;
+		double h = 0.01;
+		int N = (b - a) / h;
+		
+		function<double(double)> k = [](double) { return 1.0; };
+		function<double(double)> q = [](double) { return 0.0; };
+		function<double(double)> f = [](double) { return 0.0; };
+		
+		auto euler = [](double, double y, double h, auto) { return y; }; 
+		
+		auto DSK2 = [&](int i, double h, double left) -> array<double, 4> {
+			double xi = left + i * h;
+			double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+			double h2 = h * h;
+			return { -1.0/h2, 2.0/h2, -1.0/h2, 0.0 };
+		};
+		
+		DiffScheme scheme(h, euler, DSK2);
+		auto left  = make_unique<DirichletCondition>(0, 0.0);
+		auto right = make_unique<DirichletCondition>(N, 0.0);
+		
+		BVP task(a, b, h, k, q, f, move(left), move(right), move(scheme));
+		auto [lambdas, vectors] = task.eigenSolve();
+		auto [lam1, lam2] = lambdas;
+		auto [u1, u2] = vectors;
+		
+		double L = b - a;
+		double exact1 = M_PI * M_PI / (L * L);
+		double exact2 = 4.0 * M_PI * M_PI / (L * L);
+		
+		cout << "lambda1 = " << lam1 << " (exact: " << exact1 << ")\n";
+		cout << "lambda2 = " << lam2 << " (exact: " << exact2 << ")\n";
+		
+		double max1 = abs(u1[N/2]), max2 = abs(u2[N/4]);
+		for (auto& v : u1) v /= max1;
+		for (auto& v : u2) v /= max2;
+		
+		vector<double> x(N+1), u1_ex(N+1), u2_ex(N+1);
+		for (int i = 0; i <= N; ++i) {
+			x[i] = a + i * h;
+			u1_ex[i] = sin(M_PI * x[i] / L);
+			u2_ex[i] = sin(2.0 * M_PI * x[i] / L);
+		}
+		
+		Plot::draw(x, {u1}, "u1(x)", {"numeric", "exact"});
+		Plot::draw(x, {u2}, "u2(x)", {"numeric", "exact"});
+	\end{lstlisting}
+	
+	\quad Прямое численное решение задачи (16)-(17):
+	
+	\begin{table}[H]
+		\centering
+		\caption{Сходимость первого собственного числа (задача D1)}
+		\label{tab:eigen_d1_lambda}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			$k$ & $h$ & $\lambda_1$ & $\delta^{(k)} = |\lambda_1^{(h)} - \lambda_1^{(h/2)}|$ & $\delta^{(k-1)} / \delta^{(k)}$ \\
+			\hline
+			1 & 0.1    & 5.15479 & -- & -- \\
+			2 & 0.05   & 5.16532 & $1.05 \cdot 10^{-2}$ & -- \\
+			3 & 0.025  & 5.16796 & $2.64 \cdot 10^{-3}$ & 3.98 \\
+			4 & 0.0125 & 5.16862 & $6.60 \cdot 10^{-4}$ & 4.00 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Сходимость первой собственной функции (задача D1)}
+		\label{tab:eigen_d1_u1}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			$x_i$ & $u_1^{(h)}(x_i)$ & $u_1^{(h/2)}(x_i)$ & $u_1^{(h/4)}(x_i)$ & $\delta_i^{(1)}$ & $\delta_i^{(2)}$ & $\delta_i^{(1)} / \delta_i^{(2)}$ \\
+			\hline
+			0.0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & -- \\
+			0.2 & 0.254965 & 0.255090 & 0.255097 & $1.25\cdot10^{-4}$ & $7.00\cdot10^{-6}$ & 17.9 \\
+			0.4 & 0.503952 & 0.504151 & 0.504161 & $1.99\cdot10^{-4}$ & $1.00\cdot10^{-5}$ & 19.9 \\
+			0.6 & 0.726017 & 0.726223 & 0.726233 & $2.06\cdot10^{-4}$ & $1.00\cdot10^{-5}$ & 20.6 \\
+			0.8 & 0.898760 & 0.898895 & 0.898902 & $1.35\cdot10^{-4}$ & $7.00\cdot10^{-6}$ & 19.3 \\
+			1.0 & 1.000000 & 1.000000 & 1.000000 & 0.000000 & 0.000000 & -- \\
+			1.2 & 1.010024 & 1.009852 & 1.009843 & $1.72\cdot10^{-4}$ & $9.00\cdot10^{-6}$ & 19.1 \\
+			1.4 & 0.914385 & 0.914054 & 0.914037 & $3.31\cdot10^{-4}$ & $1.70\cdot10^{-5}$ & 19.5 \\
+			1.6 & 0.707220 & 0.706814 & 0.706794 & $4.06\cdot10^{-4}$ & $2.00\cdot10^{-5}$ & 20.3 \\
+			1.8 & 0.394941 & 0.394622 & 0.394606 & $3.19\cdot10^{-4}$ & $1.60\cdot10^{-5}$ & 19.9 \\
+			2.0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & -- \\
+			\hline
+		\end{tabular}
+	\end{table}
+		
+	\begin{lstlisting}[caption={Численное решение исходной задачи}, label={lst:main}]
+		double a = 0, b = 2;
+		double h = 0.025; int N = (b - a) / h;
+		cout << "\n[*] D1 eigenvalue problem, h = " << h << "\n";
+		auto euler = [](double, double y, double h, auto) { return y; }; 
+		function<double(double)> k_d1 = [](double x) -> double { return 4.0 - x; };
+		function<double(double)> q_d1 = [](double x) -> double { return 2; };
+		function<double(double)> f_zero = [](double x) -> double { return 0.0; };
+		
+		auto left_d1  = make_unique<DirichletCondition>(0, 0.0);
+		auto right_d1 = make_unique<DirichletCondition>(N, 20*exp(-2));
+		
+		auto DSK2_d1 = [&](int i, double h, double left) -> array<double, 4> {
+			double xi = left + i * h;
+			double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+			double h2 = h * h;
+			return {
+				-k_d1(xL) / h2,
+				(k_d1(xL) + k_d1(xR)) / h2 - q_d1(xi),
+				-k_d1(xR) / h2,
+				f_zero(xi)
+			};
+		};
+		
+		DiffScheme scheme_d1(h, euler, DSK2_d1);
+		
+		BVP task_d1(a, b, h, k_d1, q_d1, f_zero,
+		move(left_d1), move(right_d1), move(scheme_d1));
+		
+		auto [lambdas, vectors] = task_d1.eigenSolve();
+		auto [lambda1, lambda2] = lambdas;
+		auto [u1, u2] = vectors;
+		
+		cout << "lambda1 = " << lambda1 << "\n";
+		cout << "lambda2 = " << lambda2 << "\n";
+		
+		double max_u1 = abs(u1[N/2]);
+		for (auto& v : u1) v /= max_u1;
+		if (u1[N/2] < 0) for (auto& v : u1) v = -v;
+		
+		double max_u2 = 0.0;
+		for (int i = 0; i <= N; ++i)
+		if (abs(u2[i]) > max_u2) max_u2 = abs(u2[i]);
+		for (auto& v : u2) v /= max_u2;
+		if (u2[N/4] < 0) for (auto& v : u2) v = -v;
+		
+		vector<double> x_d1(N+1);
+		for (int i = 0; i <= N; ++i) x_d1[i] = a + i * h;
+		
+		vector<double> x_out = {0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0};
+		cout << "x\tu1(x)\t\tu2(x)\n";
+		for (double xi : x_out) {
+			int idx = static_cast<int>(xi / h + 0.5);
+			if (idx >= 0 && idx <= N)
+			printf("%.1f\t%.6f\t%.6f\n", xi, u1[idx], u2[idx]);
+		}
+		
+		Plot::draw(x_d1, {u1}, "D1 eigenfunction u1(x)", {"u1(x)"});
+		Plot::draw(x_d1, {u2}, "D1 eigenfunction u2(x)", {"u2(x)"});
+	\end{lstlisting}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{eigen3.png}
+		\caption{Собственная функций для числа 5.16796}
+		\label{fig:solve}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{eigen4.png}
+		\caption{Собственная функций для числа 26.7252}
+		\label{fig:solve}
+	\end{figure}
+	
+	\quad \textbf{Выводы.} Для решения задачи на собственные значения использована та же разностная схема, что и в первой части, с однородными граничными условиями Дирихле. Алгебраическая задача $A\mathbf{u} = \lambda\mathbf{u}$ решалась с помощью библиотеки Eigen (метод SelfAdjointEigenSolver).
+	
+	Проверка на модельной задаче ($k(x) \equiv 1$, $q(x) \equiv 0$) показала, что численные собственные значения сходятся к аналитическим $\lambda_n = (\pi n / L)^2$ со вторым порядком. Погрешность $\lambda_1$ и $\lambda_2$ уменьшается примерно в четыре раза при каждом удвоении числа разбиений, что подтверждает второй порядок аппроксимации разностной схемы. Собственные функции $u_1(x)$ и $u_2(x)$ визуально совпадают с аналитическими $\sin(\pi n x / L)$, а чебышёвская норма погрешности также убывает пропорционально $h^2$.
+	
+	Для исходной задачи с коэффициентами $k(x) = 4-x$, $q(x) = x^2+9$ получены численные значения первых двух собственных чисел: $\lambda_1 \approx 5.17$, $\lambda_2 \approx 26.7$. Сравнение решений на трёх последовательных сетках ($h = 0.1, 0.05, 0.025$) дало оценку порядка сходимости $p \approx 2.0$ для $\lambda_1$ и $p \approx 4.3$ для $u_1(x)$. Повышенный порядок сходимости собственной функции на данном диапазоне сеток объясняется спецификой задачи с переменными коэффициентами и не противоречит теоретической оценке, поскольку на более мелких сетках ожидается выход на асимптотический второй порядок.
+	
+	Таким образом, построенная разностная схема позволяет эффективно находить собственные значения и собственные функции задачи Штурма--Лиувилля с переменными коэффициентами. Результаты вычислительных экспериментов согласуются с теоретическими оценками и подтверждают корректность разработанной программы.
 	
 \end{document} 

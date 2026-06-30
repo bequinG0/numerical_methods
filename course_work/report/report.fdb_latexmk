@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782734504.15617 "report.tex" "report.pdf" "report" 1782734506.21865 0
+["pdflatex"] 1782813614.66134 "report.tex" "report.pdf" "report" 1782813617.26374 0
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/labx1200.tfm" 1738195317.98181 3308 eee81981029f67083258db36df06e523 ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm0600.tfm" 1739390566.29992 3248 7c0b9d76a2cd84ed06764a4c6eea5de4 ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm0800.tfm" 1739390557.57605 3240 04766e423166ba63b7fbbf132b8618cb ""
@@ -184,10 +184,14 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1775415801 43569 fd570f2fa160877d211e859f687312ba ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1780308060 5388237 80fd57b070dd1d457729929f679fe5c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1780308052 2404739 cea2edd4a70b0f60e65b6da599d67914 ""
+  "eigen1.png" 1782735317.40092 25829 c94bf7b8709b235d2b6ab05bd8c9b841 ""
+  "eigen2.png" 1782735326.54017 24826 f9523033a674e2cbdaf20c7abbde31eb ""
+  "eigen3.png" 1782736838.28906 26857 dc7ecc5d7035f9cece28cae7ef7c27ce ""
+  "eigen4.png" 1782736827.7609 30038 8238dfa4257ab4d0860b1ebb0b02fb1b ""
   "notzero-test.png" 1782689646.50339 21753 1ef2cad50b3f19c7841f271e12037f3c ""
-  "report.aux" 1782734505.96032 3429 4e269a25f6f381eaa9bb5f305279214e "pdflatex"
-  "report.out" 1782734505.21935 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "report.tex" 1782734503.13476 24269 7d186ba3a9357da4985c29e9ffe27d19 ""
+  "report.aux" 1782813617.00095 6374 ba6a63dfc23c493b4ed4c1e4a1447fd9 "pdflatex"
+  "report.out" 1782813615.73805 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "report.tex" 1782813613.6522 34696 a770d8916c6fcb770c456abe72410129 ""
   "solve.png" 1782482015.20489 24913 a31d0ae144bb64761b37f96a1fb14795 ""
   "zero-test.png" 1782673803.58966 21803 b7a1ad4bcfb9eca81101980d770be894 ""
   (generated)

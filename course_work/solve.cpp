@@ -15,7 +15,7 @@ int main()
 {
     // Решение: прямое численное решение краевой задачи
     double a = 0, b = 2;
-    double h = 0.01;
+    double h = 0.1;
     int N = (b - a) / h;
 
     function<double(double)> k = [](double x) -> double { return 4.0 - x; };
@@ -47,87 +47,86 @@ int main()
     Plot::draw(ans.first, {ans.second}, "solve", {"u(x)"});
 
     // Тест с нулевой погрешностью
-    auto u_exact = [](double x) { return x*x - x - 6.0; };
+    /*auto u_exact = [](double x) { return x*x - x - 6.0; };
 
     function<double(double)> f_test = [](double x) {
         return -2.0*x*x + 6.0*x + 3.0;
     };
 
-    auto left_test  = make_unique<DirichletCondition>(0, -6.0);
-    auto right_test = make_unique<DirichletCondition>(N, -4.0);
+    for(int i=1; i<9; i++)
+    {
+        h=h/i; N = (b-a)/h;
+        auto left_test  = make_unique<DirichletCondition>(0, -6.0);
+        auto right_test = make_unique<DirichletCondition>(N, -4.0);
 
-    auto DSK2_test = [&](int i, double h, double left) -> array<double, 4> {
-        double xi = left + i * h;
-        double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
-        double h2 = h * h;
-        return {
-            -k(xL) / h2,
-            (k(xL) + k(xR)) / h2 - q(xi),
-            -k(xR) / h2,
-            f_test(xi)
+        auto DSK2_test = [&](int i, double h, double left) -> array<double, 4> {
+            double xi = left + i * h;
+            double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+            double h2 = h * h;
+            return {
+                -k(xL) / h2,
+                (k(xL) + k(xR)) / h2 - q(xi),
+                -k(xR) / h2,
+                f_test(xi)
+            };
         };
-    };
 
-    DiffScheme scheme_test(h, euler, DSK2_test);
-
-    BVP null_task(a, b, h, k, q, f_test,
+        DiffScheme scheme_test(h, euler, DSK2_test);
+    
+        BVP null_task(a, b, h, k, q, f_test,
         move(left_test), move(right_test), move(scheme_test));
 
-    auto null_ans = null_task.solve();
+        auto null_ans = null_task.solve();
+        auto cond = null_task.conditionNumber();
 
-    vector<double> delta;
-    for(size_t i = 0; i < null_ans.first.size(); i++)
-        delta.push_back(abs(null_ans.second[i] - u_exact(null_ans.first[i])));
+        vector<double> delta;
+        for(size_t i = 0; i < null_ans.first.size(); i++)
+            delta.push_back(abs(null_ans.second[i] - u_exact(null_ans.first[i])));
 
-    double m = *max_element(delta.begin(), delta.end());
-    cout << "[*] max delta: " << m << "\n";
+        double m = *max_element(delta.begin(), delta.end());
+        cout << "[*] max delta and cond: " << m << " " << cond << "\n";
 
-    Plot::draw(null_ans.first, {null_ans.second}, "Zero-error test", {"u_h(x)"}); 
+    }*/
 
     // Тест с ненулевой погрешностью
-    h = 0.00625; N = (b-a)/h;
-    vector <double> x_test = {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 1.9};
+    auto u_exact_notnull = [](double x) { return exp(x); };
 
     function<double(double)> f_test_notnull = [](double x) {
-        return (10.0 * (x*x - 5.0*x + 9.0)) / exp(x);
+        return (x - 1.0) * exp(x);
     };
 
-    auto left_notnull  = make_unique<DirichletCondition>(0, 2.0);
-    auto right_notnull = make_unique<DirichletCondition>(N, 20*exp(-2.0));
+    for (int i = 1; i < 13; i++) {            
+        int N_i = 20*pow(2,i);       
+        double h_i = (b-a)/N_i;  
 
-    auto DSK2_notnull = [&](int i, double h, double left) -> array<double, 4> {
-        double xi = left + i * h;
-        double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
-        double h2 = h * h;
-        return {
-            -k(xL) / h2,
-            (k(xL) + k(xR)) / h2 - q(xi),
-            -k(xR) / h2,
-            f_test_notnull(xi)
+        auto left_notnull  = make_unique<DirichletCondition>(0, 1.0);
+        auto right_notnull = make_unique<DirichletCondition>(N_i, exp(2.0));
+
+        auto DSK2_notnull = [&](int idx, double h, double left) -> array<double, 4> {
+            double xi = left + idx * h;
+            double xL = xi - 0.5 * h, xR = xi + 0.5 * h;
+            double h2 = h * h;
+            return {
+                -k(xL) / h2,
+                (k(xL) + k(xR)) / h2 + q(xi),
+                -k(xR) / h2,
+                f_test_notnull(xi)
+            };
         };
-    };
 
-    DiffScheme scheme_notnull(h, euler, DSK2_notnull);
+        DiffScheme scheme_notnull(h_i, euler, DSK2_notnull);
 
-    BVP task_notnull(a, b, h, k, q, f_test_notnull,
-        move(left_notnull), move(right_notnull), move(scheme_notnull));
+        BVP task_notnull(a, b, h_i, k, q, f_test_notnull,
+            move(left_notnull), move(right_notnull), move(scheme_notnull));
 
-    auto ans_notnull = task_notnull.solve();
-    
-    cout << "[*] u(x_i) from " << h << "\n";
-    for(int i=0; i<ans_notnull.first.size(); i++)
-    {
-        for(auto e : x_test)
-        {
-            if(e == ans_notnull.first[i]) cout << ans_notnull.first[i] << " " << ans_notnull.second[i] << "\n";
-        }
+        auto ans_notnull = task_notnull.solve();
+        auto cond = task_notnull.conditionNumber();
+
+        vector<double> delta;
+        for (size_t j = 0; j < ans_notnull.first.size(); j++)
+            delta.push_back(abs(ans_notnull.second[j] - u_exact_notnull(ans_notnull.first[j])));
+
+        double m = *max_element(delta.begin(), delta.end());
+        cout << "[*] max delta and cond: " << m << " " << cond << " " << N_i << "\n";
     }
-
-    double err_notnull = 0.0;
-    
-    Plot::draw(ans_notnull.first, {ans_notnull.second}, "NotZero-error test", {"u_h(x)"});
-
-    //Решение задачи Штурма-Лиувилля
-
-    return 0;
 }
