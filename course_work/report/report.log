@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.1)  30 JUN 2026 13:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.1)  30 JUN 2026 15:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -978,88 +978,93 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.311 	
+l.314 	
         [5]
 <notzero-test.png, id=136, 481.8pt x 361.35pt>
 File: notzero-test.png Graphic file (type png)
 <use notzero-test.png>
-Package pdftex.def Info: notzero-test.png  used on input line 328.
+Package pdftex.def Info: notzero-test.png  used on input line 331.
 (pdftex.def)             Requested size: 386.95897pt x 290.22725pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.339 			return 
-                (x - 1.0) * exp(x); [6 <./notzero-test.png>]
+l.339 		auto 
+             u_exact_notnull = [](double x) { return exp(x); }; [6 <./notzero-t
+est.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.409 	
+l.395 	
         [7]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.423 	
+l.424 	
         [8]
-<eigen1.png, id=194, 481.8pt x 361.35pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.497 	
+        [9]
+<eigen1.png, id=202, 481.8pt x 361.35pt>
 File: eigen1.png Graphic file (type png)
 <use eigen1.png>
-Package pdftex.def Info: eigen1.png  used on input line 495.
+Package pdftex.def Info: eigen1.png  used on input line 500.
 (pdftex.def)             Requested size: 411.14528pt x 308.3675pt.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.499 	
-        [9]
-<eigen2.png, id=205, 481.8pt x 361.35pt>
+<eigen2.png, id=203, 481.8pt x 361.35pt>
 File: eigen2.png Graphic file (type png)
 <use eigen2.png>
-Package pdftex.def Info: eigen2.png  used on input line 502.
+Package pdftex.def Info: eigen2.png  used on input line 507.
 (pdftex.def)             Requested size: 411.14528pt x 308.3675pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.507 ...СЊРЅРѕР№ Р·Р°РґР°С‡Рё}, label={lst:main}]
-                                                   [10 <./eigen1.png> <./eigen2
-.png>]
+l.511 	
+        [10 <./eigen1.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.573 	
-        [11]
+l.539 		double 
+               L = b - a; [11 <./eigen2.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.621 		DiffScheme 
-                   scheme_d1(h, euler, DSK2_d1); [12]
-<eigen3.png, id=291, 481.8pt x 361.35pt>
+l.605 		cout 
+             << "\n[*] D1 eigenvalue problem, h = " << h << "\n"; [12]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.651 		vector<
+               double> x_out = {0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1...
+[13]
+<eigen3.png, id=319, 481.8pt x 361.35pt>
 File: eigen3.png Graphic file (type png)
 <use eigen3.png>
-Package pdftex.def Info: eigen3.png  used on input line 660.
+Package pdftex.def Info: eigen3.png  used on input line 665.
+(pdftex.def)             Requested size: 411.14528pt x 308.3675pt.
+<eigen4.png, id=320, 481.8pt x 361.35pt>
+File: eigen4.png Graphic file (type png)
+<use eigen4.png>
+Package pdftex.def Info: eigen4.png  used on input line 672.
 (pdftex.def)             Requested size: 411.14528pt x 308.3675pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.664 	
-        [13]
-<eigen4.png, id=333, 481.8pt x 361.35pt>
-File: eigen4.png Graphic file (type png)
-<use eigen4.png>
-Package pdftex.def Info: eigen4.png  used on input line 667.
-(pdftex.def)             Requested size: 411.14528pt x 308.3675pt.
-
-Overfull \hbox (49.45277pt too wide) in paragraph at lines 672--673
+l.676 	
+        [14 <./eigen3.png>]
+Overfull \hbox (49.45277pt too wide) in paragraph at lines 677--678
 \T2A/cmr/m/n/12 геб-ра-и-че-ская за-да-ча $\OML/cmm/m/it/12 A\OT1/cmr/bx/n/12 u
  \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 ^^U\OT1/cmr/bx/n/12 u$ \T2A/cmr/m/n/12 ре-ш
 а-лась с по-мо-щью биб-лио-те-ки Eigen (ме-тод SelfAdjointEigenSolver). 
@@ -1070,14 +1075,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.673 	
-        [14 <./eigen3.png> <./eigen4.png>]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.680 \end{document}
-                     [15] (./report.aux)
+l.685 \end{document}
+                     [15 <./eigen4.png>] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1089,11 +1088,11 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26653 strings out of 468980
- 468351 string characters out of 5462462
- 1538720 words of memory out of 5000000
- 54673 multiletter control sequences out of 15000+600000
- 638820 words of font info for 69 fonts, out of 8000000 for 9000
+ 26651 strings out of 468980
+ 468330 string characters out of 5462462
+ 1516720 words of memory out of 5000000
+ 54672 multiletter control sequences out of 15000+600000
+ 638018 words of font info for 68 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  84i,15n,104p,1137b,2136s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
@@ -1108,14 +1107,13 @@ m/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.p
 fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/
 share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dis
 t/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm0800.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
-sfrm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></
-usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf
--dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on report.pdf (15 pages, 465684 bytes).
+ublic/cm-super/sfrm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
+sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></
+usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on report.pdf (15 pages, 442920 bytes).
 PDF statistics:
- 481 PDF objects out of 1000 (max. 8388607)
- 407 compressed objects within 5 object streams
+ 476 PDF objects out of 1000 (max. 8388607)
+ 404 compressed objects within 5 object streams
  254 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

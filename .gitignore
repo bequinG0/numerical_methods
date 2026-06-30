@@ -1,0 +1,37 @@
+# Binaries
+diff
+solve
+eigen
+eigen_solve
+model
+*.exe
+*.out
+
+# Build artifacts
+build/
+*.o
+*.obj
+
+# LaTeX temporary
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+
+# Data files
+*.dat
+*.png
+*.pdf
+!course_work/report/*.png
+!course_work/report/*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
