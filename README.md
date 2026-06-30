@@ -2,7 +2,8 @@
 
 Лабораторные работы и курсовая работа по численным методам.
 
-## 📁 Структура ```
+## 📁 Структура 
+```bash
 numerical_methods/
 ├── lab_1/ # Лабораторная работа 1 (MATLAB)
 ├── lab_2/ # Лабораторная работа 2 (MATLAB)
@@ -16,7 +17,6 @@ numerical_methods/
 │ └── example.nb # Пример в Wolfram Mathematica
 └── README.md
 ```
-
 
 ## 🎓 Курсовая работа
 
@@ -50,7 +50,8 @@ g++ -O3 -march=native -ffast-math solve.cpp diffcore-cpp/src/conditions.cpp \
 # Задача на собственные значения
 g++ -O3 -march=native -ffast-math eigen-values.cpp diffcore-cpp/src/conditions.cpp \
     -I diffcore-cpp/include -I /usr/include/eigen3 -std=c++20 -o eigen
-./eigen```
+./eigen
+```
 
 ## 📄 Лицензия
 
