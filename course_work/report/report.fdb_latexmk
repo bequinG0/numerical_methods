@@ -1,8 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1782813614.66134 "report.tex" "report.pdf" "report" 1782813617.26374 0
+["pdflatex"] 1782822276.19256 "report.tex" "report.pdf" "report" 1782822278.78795 0
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/labx1200.tfm" 1738195317.98181 3308 eee81981029f67083258db36df06e523 ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm0600.tfm" 1739390566.29992 3248 7c0b9d76a2cd84ed06764a4c6eea5de4 ""
-  "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm0800.tfm" 1739390557.57605 3240 04766e423166ba63b7fbbf132b8618cb ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm1095.tfm" 1755454328.99679 3264 ead613d557baebcc53cf028c9c92d927 ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/larm1200.tfm" 1738195304.91525 3240 c2435f2b5cd66d4930bc29b8df87967e ""
   "/home/bequ1n/.texlive/texmf-var/fonts/tfm/lh/lh-t2a/lati1200.tfm" 1741250273.39866 3512 f3a56cfe95a159371df20f73d1eb107d ""
@@ -43,7 +42,6 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1775415801 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb" 1775415801 140176 d4962f948b4cc0adf4d3dde77a128c95 ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb" 1775415801 162624 9dcc92cd3b1dfe2ecc80e6da7f2eb6bd ""
-  "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb" 1775415801 164227 3df942b4ff2124425d8fb1b6d3e01c7a ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb" 1775415801 145929 f25e56369a345c4ff583b067cd87ce8e ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1775415801 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb" 1775415801 198221 ca5aa71411090ef358a6cc78b7458365 ""
@@ -189,9 +187,9 @@
   "eigen3.png" 1782736838.28906 26857 dc7ecc5d7035f9cece28cae7ef7c27ce ""
   "eigen4.png" 1782736827.7609 30038 8238dfa4257ab4d0860b1ebb0b02fb1b ""
   "notzero-test.png" 1782689646.50339 21753 1ef2cad50b3f19c7841f271e12037f3c ""
-  "report.aux" 1782813617.00095 6374 ba6a63dfc23c493b4ed4c1e4a1447fd9 "pdflatex"
-  "report.out" 1782813615.73805 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "report.tex" 1782813613.6522 34696 a770d8916c6fcb770c456abe72410129 ""
+  "report.aux" 1782822278.53293 6254 a46214b76c8c078b554c4caf3102b65f "pdflatex"
+  "report.out" 1782822277.28201 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "report.tex" 1782822272.72016 35142 a9ae7313b8542af83e2d31d7a86f0511 ""
   "solve.png" 1782482015.20489 24913 a31d0ae144bb64761b37f96a1fb14795 ""
   "zero-test.png" 1782673803.58966 21803 b7a1ad4bcfb9eca81101980d770be894 ""
   (generated)
